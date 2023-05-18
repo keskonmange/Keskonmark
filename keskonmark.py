@@ -92,8 +92,11 @@ def watermark_all():
             if not watermark(image, text_watermark):
                 errors.append(image)
         if errors:
-            print(errors)
-            messagebox.showerror(title="KESKONMARK", message='\r\r'.join(errors))
+            num_errors = len(errors)
+            error_message = f"{num_errors} Invalid Images. \nCheck error.log for details."
+            with open("error_log.txt", "w") as log:
+                log.write("\n".join(errors))
+            messagebox.showerror(title="KESKONMARK", message=error_message)
         selected_files_num_label.config(text=f"ALL DONE")
     else:
         messagebox.showwarning(title="KESKONMARK", message="Don't Forget to Type in the Watermark!")
